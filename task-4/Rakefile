@@ -23,5 +23,5 @@ end
 
 desc "Run tests"
 task :test do
-  sh "bundle exec rspec test/*"
+  sh "bundle exec rspec --format doc --color test/*"
 end

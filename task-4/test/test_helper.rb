@@ -9,7 +9,8 @@ module TestHelper
     # WARNING: we use transactional fixtures only. This helper should not be
     # used to test transaction dependent code.
     child.around do |example|
-      tables = Dir["test/fixtures/*.yml"].map{|fn| File.basename(fn,".yml") }
+      tables = Dir["test/fixtures/*.yml"].map{|fn| 
+File.basename(fn,".yml") }
       ActiveRecord::Fixtures.create_fixtures("test/fixtures/",tables)
       ActiveRecord::Base.transaction do
         example.run
