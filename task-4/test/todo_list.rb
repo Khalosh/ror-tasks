@@ -3,10 +3,23 @@ require_relative '../lib/todo_list'
 
 describe TodoList do
   include TestHelper
-
-  it "should have a non-empty title" do
-    TodoList.create(:title => "Some title")
-    TodoList.title.should == "Some title"
+    
+    subject(:list)    { TodoList.create(title: title, user_id: user_id) }
+    let(:title)       { "Some title" }
+    let(:user_id)        { 1 }
+    
+  it "should pass validation" do
+    list.should be_valid
+  end
+    
+  context "with empty title" do
+    let(:title) { "" }
+    it { should_not be_valid }
+  end
+    
+  context "without attribute user_id" do
+     let(:user_id) { nil }
+     it { should_not be_valid }
   end
 end
 
