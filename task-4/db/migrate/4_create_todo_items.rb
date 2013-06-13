@@ -3,7 +3,7 @@ class CreateTodoItems < ActiveRecord::Migration
         create_table :todo_items do |t|
             t.string :title
             t.string :description
-            t.datetime :date_due
+            t.string :date_due
             t.integer :todo_list_id
         end
     end
