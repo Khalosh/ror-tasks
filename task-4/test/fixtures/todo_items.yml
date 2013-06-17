@@ -1,0 +1,20 @@
+first_todo_item:
+  title: "Pierwszy item"
+  todo_list: first_list
+  description: "Ziemniaki"
+second_todo_item:
+  title: "Drugi item"
+  todo_list: second_list
+  description: "Kartofle"
+third_todo_item:
+  title: "Trzeci item"
+  todo_list: first_list
+  description: "Pyry"
+fourth_todo_item:
+  title: "Czwarty item"
+  todo_list: first_list
+  description: "Grule"
+fifth_todo_item:
+  title: "Piąty item"
+  todo_list: second_list
+  description: "Brambory"

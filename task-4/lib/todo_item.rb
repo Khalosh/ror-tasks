@@ -1,7 +1,6 @@
 require 'active_record'
 
 class TodoItem < ActiveRecord::Base
-    attr_accessible :title, :description, :todo_list_id, :date_due
     
   belongs_to :todo_list
   validates :title, :todo_list_id, presence: true  

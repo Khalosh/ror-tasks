@@ -15,4 +15,28 @@ class User < ActiveRecord::Base
     validates :surname, length: { maximum: 30 }
     validates :email, :format => { :with => /^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i }
     validates :terms_of_the_service, acceptance: { accept: true }, allow_nil: false
+
+
+
+  def self.authenticate(email, password)
+    if (user = find_by_email(email))
+      if user.password == password
+        return true
+      end
+      user.update_attribute(:failed_login_count, user.failed_login_count += 1)
+    end
+    return false
+  end
+
+  def self.find_suspicious_users
+    where("failed_login_count > ?", 2) 
+  end
+
+  def self.group_suspicious_users
+    group("failed_login_count")
+  end
+
+  def self.find_by_prefix (prefix)
+    where("lower(surname) LIKE '#{prefix.downcase}%'").first
+  end
 end

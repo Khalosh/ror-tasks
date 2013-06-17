@@ -1,6 +1,6 @@
 source "http://www.rubygems.org"
 
-gem "activerecord", "3.2.13"
-gem "rake"
+gem "activerecord"
+gem "rake", "10.0.4"
 gem 'sqlite3'
 gem 'rspec'

@@ -1,2 +1,13 @@
 first_user:
-  name: Krzysztof
+  name: Adrian
+  surname: Kuciel
+  email: djmicros@gmail.com
+  password: qwerty12345
+second_user:
+  name: Jason
+  surname: Statham
+  failed_login_count: 4
+third_user:
+  name: Bożydar
+  surname: Krawężnik
+  failed_login_count: 4

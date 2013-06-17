@@ -60,4 +60,37 @@ describe User do
       let(:email) { "khalosh.gmail.com" }
       it { should_not be_valid }
   end
+
+
+  it "should find user by surname" do
+    user = User.find_by_surname("Statham")
+    user.surname.should == "Statham"
+    user.name.should == "Jason"
+  end
+
+  it "should find user by email" do
+    user = User.find_by_email("djmicros@gmail.com")
+    user.surname.should == "Kuciel"
+    user.name.should == "Adrian"
+  end
+
+  it "should authenticate user using email and password (should use password encryption)" do 
+     User.authenticate("djmicros@gmail.com", "qwerty12345").should == true
+  end
+
+  it "should find suspicious users with more than 2 failed_login_counts" do
+    User.authenticate("djmicros@gmail.com", "zxcv")
+    User.authenticate("djmicros@gmail.com", "qwer")
+    User.authenticate("djmicros@gmail.com", "asdf")
+    User.find_by_email("djmicros@gmail.com").failed_login_count.should == 3
+    User.find_suspicious_users.count.should == 3
+  end
+    
+  it "should group users by failed_login_counts" do
+    User.group_suspicious_users.count.should == {0=>1, 4=>2}
+  end
+    
+  it "find user by prefix of his/her surname" do
+    User.find_by_prefix("Kuci").surname.should == "Kuciel"
+  end
 end
