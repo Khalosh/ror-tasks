@@ -28,6 +28,14 @@ class User < ActiveRecord::Base
     return false
   end
 
+  def self.find_by_surname(surname)
+    where(surname: surname).first
+  end
+
+  def self.find_by_email(email)
+    where(email: email).first
+  end
+
   def self.find_suspicious_users
     where("failed_login_count > ?", 2) 
   end
@@ -37,6 +45,6 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_prefix (prefix)
-    where("lower(surname) LIKE '#{prefix.downcase}%'").first
+    where("lower(surname) LIKE ?", "#{prefix.downcase}%").first
   end
 end

@@ -4,3 +4,4 @@ gem "activerecord"
 gem "rake", "10.0.4"
 gem 'sqlite3'
 gem 'rspec'
+gem 'sqlite3_ar_regexp'

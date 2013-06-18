@@ -31,7 +31,7 @@ describe TodoList do
   end
 
   it "should find list by id and egearly load its items" do
-    list = TodoList.find_and_load_items(1)
+    list = TodoList.find_and_load_items(ActiveRecord::Fixtures.identify(:first_list))
     list.title.should == "Pierwsza lista"
     list.todo_items.count.should == 3
   end

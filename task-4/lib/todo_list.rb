@@ -7,7 +7,7 @@ class TodoList < ActiveRecord::Base
 
 
   def self.find_by_prefix (prefix)
-    where("lower(title) LIKE '#{prefix.downcase}%'")
+    where("lower(title) LIKE ?", "#{prefix.downcase}%")
   end
 
   def self.find_by_user (user)

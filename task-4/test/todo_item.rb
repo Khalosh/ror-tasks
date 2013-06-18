@@ -47,5 +47,46 @@ describe TodoItem do
     let(:description) { "Lorem ipsum dolor sit amet diam turpis sagittis urna. Donec consectetuer tincidunt, eros sagittis venenatis. Curabitur urna quis sollicitudin mi risus, pellentesque vel, varius egestas, nunc iaculis odio tellus wisi, aliquam dictum accumsan imperdiet, neque vitae felis. In euismod pulvinar, pede bibendum sapien eget odio. Quisque sit amet quam. Aliquam faucibus quis, tincidunt eget, dolor. Nulla faucibus non, placerat ut, metus. Maecenas eget urna. Cras interdum vehicula. Vivamus orci vitae erat volutpat. Ut fermentum nisl at nibh ut augue. Lorem ipsum aliquet molestie. Phasellus ut nulla. Integer condimentum lorem sodales turpis, rutrum sit amet augue. Pellentesque habitant morbi tristique luctus diam in consequat non, consectetuer ut, diam. Nam laoreet ut, dolor. Fusce urna eros bibendum varius felis sed dui. Nulla posuere quis, eleifend non, quam. Nam diam. Donec sit amet, est. Aliquam erat lacus, elementum congue, lorem semper magna sit amet, felis. Aliquam eget leo velit sit amet dignissim turpis. Morbi molestie, neque. In molestie tincidunt. Maecenas nisl neque auctor varius, felis vitae mauris. Etiam non enim molestie ultricies vehicula, dui quis leo. In sodales in, mollis neque tristique bibendum." }
       it { should_not be_valid }
     end
+    
+    it "should find items with a specific word in a description" do
+      TodoItem.find_by_word("ziemniaka").title.should == "Pierwszy item"
+    end
+    
+    it "should find items with description exceeding 100 characters" do
+      TodoItem.with_long_description.title.should == "Drugi item"
+    end
+    
+    it "should paginate items" do
+      TodoItem.paginate(1).map(&:title).should == ["Czwarty item", "Drugi item", "Piaty item", "Pierwszy item", "Siodmy item"]
+      TodoItem.paginate(2).map(&:title).should == ["Szosty item", "Trzeci item"]
+    end
+    
+    it "should find all items that belong to a given user" do
+      TodoItem.find_all_by_user(User.find_by_surname("Kuciel")).count.should == 3
+    end
+    
+    it "should find items that belong to a specific user that are due to midnight of a specific day" do
+        
+    end
+    
+    it "should find items that are due for a specific day" do
+      TodoItem.find_by_day("01/01/1992").should == 2
+    end
+    
+    it "should find items that are due for a specific week" do
+    
+    end
+    
+    it "should find items that are due for a specific month" do
+        
+    end
+    
+    it "should find items that are overdue (what about the current date?)" do
+        
+    end
+    
+    it "should find items that are due in the next n hours" do
+        
+    end
 end
 
