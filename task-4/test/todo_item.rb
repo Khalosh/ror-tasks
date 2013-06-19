@@ -66,27 +66,28 @@ describe TodoItem do
     end
     
     it "should find items that belong to a specific user that are due to midnight of a specific day" do
-        
+        user = User.find_by_surname("Kuciel")
+        TodoItem.find_by_user_and_day(user, "01/01/1992").count.should == 2
     end
     
     it "should find items that are due for a specific day" do
-      TodoItem.find_by_day("01/01/1992").should == 2
+      TodoItem.find_by_day("01/01/1992").count.should == 3
     end
     
     it "should find items that are due for a specific week" do
-    
+        TodoItem.find_by_week(1992,1).count.should == 3
     end
     
     it "should find items that are due for a specific month" do
-        
+        TodoItem.find_by_month(1992,01).count.should == 3
     end
     
-    it "should find items that are overdue (what about the current date?)" do
-        
+    it "should find items that are overdue" do
+        TodoItem.find_overdue(Date.parse("10/06/2013")).count.should == 3
     end
     
     it "should find items that are due in the next n hours" do
-        
+        TodoItem.find_by_next_n_hours(Time.new(2013, 06, 10, 19, 00, 00), 12).count.should == 1
     end
 end
 

@@ -29,10 +29,31 @@ class TodoItem < ActiveRecord::Base
   end
 
   def self.find_by_day(date)
-    where("date_due = ?", Time.parse(date))
+    where("date_due = ?", Date.parse(date))
   end
 
+  def self.find_by_user_and_day(user, date)
+    find_all_by_user(user).find_by_day(date)
+  end
 
+  def self.find_by_week(year, week)
+    date_from = Date.parse(Date.commercial(year, week, 1).to_s)
+    date_to = Date.parse(Date.commercial(year, week, 7).to_s)
+    where("date_due BETWEEN ? AND ?", date_from, date_to)
+  end
+
+  def self.find_by_month(year,month)
+    where("date_due BETWEEN ? AND ?", Date.new(year, month), Date.new(year, month).end_of_month)
+  end
+
+  def self.find_overdue(date)
+    where("date_due < ?", date)
+  end
+
+  def self.find_by_next_n_hours(date_from, hours)
+    date_to = date_from + hours.hours
+    where("date_due BETWEEN ? AND ?", date_from, date_to)
+  end
 
   def date_due=(date)
     @date = date
